@@ -55072,46 +55072,86 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AddAuthorModal = function (_Component) {
     _inherits(AddAuthorModal, _Component);
 
-    function AddAuthorModal() {
+    function AddAuthorModal(props) {
         _classCallCheck(this, AddAuthorModal);
 
-        return _possibleConstructorReturn(this, (AddAuthorModal.__proto__ || Object.getPrototypeOf(AddAuthorModal)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (AddAuthorModal.__proto__ || Object.getPrototypeOf(AddAuthorModal)).call(this, props));
+
+        _this.state = {
+            error: false
+        };
+        _this.handleSave = _this.handleSave.bind(_this);
+        return _this;
     }
 
     _createClass(AddAuthorModal, [{
-        key: "render",
+        key: 'handleSave',
+        value: function handleSave() {
+            var _this2 = this;
+
+            console.log('Save');
+            if (!this.refs.nameAuthor.value) {
+                this.setState({ error: true });
+                return null;
+            }
+            this.setState({ error: false });
+
+            axios.post('/api/author', {
+                name: this.refs.nameAuthor.value
+            }).then(function (response) {
+                _this2.props.modalAuthorClose();
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'render',
         value: function render() {
+
+            var error = "Input field";
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "_modal" },
+                'div',
+                { className: '_modal' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "_modal-content" },
+                    'div',
+                    { className: '_modal-content' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "h5",
+                        'div',
+                        { className: this.state.error ? "text-danger" : "" },
+                        this.state.error ? error : ""
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h5',
                         null,
-                        "Add Author"
+                        'Add Author'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "offset-sm-2 col-sm-8" },
-                        "Name:",
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", className: "form-control" })
+                        'div',
+                        { className: 'offset-sm-2 col-sm-8' },
+                        'Name:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            ref: 'nameAuthor',
+                            type: 'text',
+                            className: 'form-control' })
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
+                        'div',
                         null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "button",
-                            { type: "button", className: "btn btn-primary" },
-                            "Save"
+                            'button',
+                            { type: 'button',
+                                className: 'btn btn-primary',
+                                onClick: this.handleSave },
+                            'Save'
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "button",
-                            { type: "button", className: "btn btn-secondary",
+                            'button',
+                            { type: 'button',
+                                className: 'btn btn-secondary',
                                 onClick: this.props.modalAuthorClose },
-                            "Close"
+                            'Close'
                         )
                     )
                 )

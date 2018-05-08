@@ -17,5 +17,9 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::get('books', 'ApiController@index');
-Route::delete('books/{id}', 'ApiController@destroy');
+//Books routes
+Route::get('books', 'Api\BookController@index');
+Route::delete('books/{id}', 'Api\BookController@destroy');
+
+//Author route
+Route::post('author', 'Api\AuthorController@store');
