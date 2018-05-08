@@ -36307,37 +36307,34 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Book = function (_Component) {
     _inherits(Book, _Component);
 
-    function Book() {
+    function Book(props) {
         _classCallCheck(this, Book);
 
-        return _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).call(this, props));
+
+        _this.state = {
+            books: []
+            // sum: null,
+            // error: false
+        };
+        // this.handleDateSearch = this.handleDateSearch.bind(this);
+        // this.handleEdit = this.handleEdit.bind(this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
+        // this.updateStateFromStore = this.updateStateFromStore.bind(this);
+        return _this;
     }
 
     _createClass(Book, [{
-        key: 'render',
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
 
-        // constructor(props) {
-        //     super(props);
-        //     this.state = {
-        //         operations: [],
-        //         sum: null,
-        //         error: false
-        //     };
-        //     this.handleDateSearch = this.handleDateSearch.bind(this);
-        //     this.handleEdit = this.handleEdit.bind(this);
-        //     this.handleDelete = this.handleDelete.bind(this);
-        //     this.updateStateFromStore = this.updateStateFromStore.bind(this);
-        // }
-
-        // componentDidMount() {
-        //     axios.get('/api/operations')
-        //         .then(response => {
-        //             this.setState({operations: response.data});
-        //         })
-        //         .catch(error => {
-        //             console.log(error);
-        //         });
-        // }
+            axios.get('/api/books').then(function (response) {
+                _this2.setState({ books: response.data });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
 
         // handleDateSearch() {
         //     if (!this.refs.dateStart.value || !this.refs.dateEnd.value) {
@@ -36360,19 +36357,19 @@ var Book = function (_Component) {
         //     window.location.pathname = `api/operation/${id}/edit`;
         // }
 
-        // handleDelete(id) {
-        //     confirm("Are you sure? Operation will be delete!");
-        //
-        //     axios.delete(`/api/operations/${id}`)
-        //         .then(response => {
-        //             console.log(response.data);
-        //         })
-        //         .catch(error => {
-        //             console.log(error);
-        //         });
-        //
-        //     this.componentDidMount();
-        // }
+    }, {
+        key: 'handleDelete',
+        value: function handleDelete(id) {
+            confirm("Are you sure? Book will be delete!");
+
+            axios.delete('/api/books/' + id).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+            this.componentDidMount();
+        }
 
         // // Update list operations after store new operation
         // updateStateFromStore(operation) {
@@ -36380,12 +36377,77 @@ var Book = function (_Component) {
         //     this.componentDidMount();
         // }
 
+    }, {
+        key: 'render',
         value: function render() {
+            var _this3 = this;
+
+            var listBooks = this.state.books.map(function (book, index) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { className: 'list-group-item', key: index },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'b',
+                        null,
+                        'ID:'
+                    ),
+                    ' ',
+                    book.id,
+                    '\xA0|\xA0',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'b',
+                        null,
+                        'Title:'
+                    ),
+                    ' ',
+                    book.title,
+                    '\xA0|\xA0',
+                    book.author ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'b',
+                            null,
+                            'Author:'
+                        ),
+                        ' book.author.name \xA0|\xA0'
+                    ) : null,
+                    book.publication ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'b',
+                            null,
+                            'Publishing house:'
+                        ),
+                        ' ',
+                        book.publication.name,
+                        '\xA0|\xA0'
+                    ) : null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'b',
+                        null,
+                        'Published at:'
+                    ),
+                    ' ',
+                    book.published_at,
+                    '\xA0|\xA0',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        {
+                            className: 'btn btn-danger',
+                            onClick: function onClick() {
+                                return _this3.handleDelete(book.id);
+                            } },
+                        'Delete'
+                    )
+                );
+            });
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'p',
-                null,
-                'JJ'
+                'ul',
+                { className: 'list-group list-group-flush' },
+                listBooks
             );
         }
     }]);
