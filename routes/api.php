@@ -21,5 +21,8 @@ use Illuminate\Http\Request;
 Route::get('books', 'Api\BookController@index');
 Route::delete('books/{id}', 'Api\BookController@destroy');
 
-//Author route
+//Author routes
 Route::post('author', 'Api\AuthorController@store');
+
+//Publication house routes
+Route::post('publication', 'Api\PublicationController@store');

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import AddAuthorModal from './AddAuthorModal';
+import AddPublicationModal from './AddPublicationModal';
 
 export default class Book extends Component {
     constructor(props) {
@@ -8,6 +9,7 @@ export default class Book extends Component {
         this.state = {
             books: [],
             modalAuthor: false,
+            modalPublication: false,
             // error: false
         };
         // this.handleDateSearch = this.handleDateSearch.bind(this);
@@ -15,6 +17,8 @@ export default class Book extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.modalAuthorOpen = this.modalAuthorOpen.bind(this);
         this.modalAuthorClose = this.modalAuthorClose.bind(this);
+        this.modalPublicationOpen = this.modalPublicationOpen.bind(this);
+        this.modalPublicationClose = this.modalPublicationClose.bind(this);
         // this.updateStateFromStore = this.updateStateFromStore.bind(this);
     }
 
@@ -34,6 +38,14 @@ export default class Book extends Component {
 
     modalAuthorClose() {
         this.setState({modalAuthor: false});
+    }
+
+    modalPublicationOpen() {
+        this.setState({modalPublication: true});
+    }
+
+    modalPublicationClose() {
+        this.setState({modalPublication: false});
     }
 
     // handleDateSearch() {
@@ -96,12 +108,17 @@ export default class Book extends Component {
 
 
         if (this.state.modalAuthor) return <AddAuthorModal modalAuthorClose={this.modalAuthorClose}/>;
+        if (this.state.modalPublication) return <AddPublicationModal modalPublicationClose={this.modalPublicationClose}/>;
 
         return (
             <div>
                 <button
                     className="btn btn-primary"
                     onClick={this.modalAuthorOpen}>Add Author
+                </button>
+                <button
+                    className="btn btn-success"
+                    onClick={this.modalPublicationOpen}>Add Publication House
                 </button>
                 <ul className="list-group list-group-flush">{listBooks}</ul>
             </div>

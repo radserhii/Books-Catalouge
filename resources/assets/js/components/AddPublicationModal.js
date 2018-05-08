@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class AddAuthorModal extends Component {
+export default class AddPublicationModal extends Component {
 
     constructor(props) {
         super(props);
@@ -12,17 +12,17 @@ export default class AddAuthorModal extends Component {
 
     handleSave() {
 
-        if (!this.refs.nameAuthor.value) {
+        if (!this.refs.namePublication.value) {
             this.setState({error: true});
             return null;
         }
         this.setState({error: false});
 
-        axios.post('/api/author', {
-            name: this.refs.nameAuthor.value
+        axios.post('/api/publication', {
+            name: this.refs.namePublication.value
         })
             .then(response => {
-                this.props.modalAuthorClose();
+                this.props.modalPublicationClose();
             })
             .catch(error => {
                 console.log(error);
@@ -37,11 +37,11 @@ export default class AddAuthorModal extends Component {
             <div className="_modal">
                 <div className="_modal-content">
                     <div className={this.state.error ? "text-danger" : ""}>{this.state.error ? error : ""}</div>
-                    <h5>Add Author</h5>
+                    <h5>Add Publication House</h5>
                     <div className="offset-sm-2 col-sm-8">
                         Name:
                         <input
-                            ref="nameAuthor"
+                            ref="namePublication"
                             type="text"
                             className="form-control"/>
                     </div>
@@ -53,7 +53,7 @@ export default class AddAuthorModal extends Component {
                         </button>
                         <button type="button"
                                 className="btn btn-secondary"
-                                onClick={this.props.modalAuthorClose}>Close
+                                onClick={this.props.modalPublicationClose}>Close
                         </button>
                     </div>
                 </div>

@@ -13,4 +13,12 @@ class Publication extends Model
     {
         return $this->hasMany('App\Book');
     }
+
+    public function storePublication($request)
+    {
+        $publication = new Publication;
+        $publication->name = $request->name;
+        $publication->save();
+        return $publication;
+    }
 }
