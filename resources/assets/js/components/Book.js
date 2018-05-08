@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import AddAuthorModal from './AddAuthorModal';
 
 export default class Book extends Component {
     constructor(props) {
         super(props);
         this.state = {
             books: [],
-            // sum: null,
+            modalAuthor: false,
             // error: false
         };
         // this.handleDateSearch = this.handleDateSearch.bind(this);
         // this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.modalAuthorOpen = this.modalAuthorOpen.bind(this);
+        this.modalAuthorClose = this.modalAuthorClose.bind(this);
         // this.updateStateFromStore = this.updateStateFromStore.bind(this);
     }
 
@@ -23,6 +26,14 @@ export default class Book extends Component {
             .catch(error => {
                 console.log(error);
             });
+    }
+
+    modalAuthorOpen() {
+        this.setState({modalAuthor: true});
+    }
+
+    modalAuthorClose() {
+        this.setState({modalAuthor: false});
     }
 
     // handleDateSearch() {
@@ -83,9 +94,19 @@ export default class Book extends Component {
             </li>
         );
 
+
+        if (this.state.modalAuthor) return <AddAuthorModal modalAuthorClose={this.modalAuthorClose}/>;
+
         return (
-            <ul className="list-group list-group-flush">{listBooks}</ul>
+            <div>
+                <button
+                    className="btn btn-primary"
+                    onClick={this.modalAuthorOpen}>Add Author
+                </button>
+                <ul className="list-group list-group-flush">{listBooks}</ul>
+            </div>
         );
+
     }
 }
 

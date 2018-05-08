@@ -36293,6 +36293,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddAuthorModal__ = __webpack_require__(63);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36300,6 +36301,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -36313,13 +36315,15 @@ var Book = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).call(this, props));
 
         _this.state = {
-            books: []
-            // sum: null,
+            books: [],
+            modalAuthor: false
             // error: false
         };
         // this.handleDateSearch = this.handleDateSearch.bind(this);
         // this.handleEdit = this.handleEdit.bind(this);
         _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.modalAuthorOpen = _this.modalAuthorOpen.bind(_this);
+        _this.modalAuthorClose = _this.modalAuthorClose.bind(_this);
         // this.updateStateFromStore = this.updateStateFromStore.bind(this);
         return _this;
     }
@@ -36334,6 +36338,16 @@ var Book = function (_Component) {
             }).catch(function (error) {
                 console.log(error);
             });
+        }
+    }, {
+        key: 'modalAuthorOpen',
+        value: function modalAuthorOpen() {
+            this.setState({ modalAuthor: true });
+        }
+    }, {
+        key: 'modalAuthorClose',
+        value: function modalAuthorClose() {
+            this.setState({ modalAuthor: false });
         }
 
         // handleDateSearch() {
@@ -36444,10 +36458,23 @@ var Book = function (_Component) {
                 );
             });
 
+            if (this.state.modalAuthor) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AddAuthorModal__["a" /* default */], { modalAuthorClose: this.modalAuthorClose });
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                { className: 'list-group list-group-flush' },
-                listBooks
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    {
+                        className: 'btn btn-primary',
+                        onClick: this.modalAuthorOpen },
+                    'Add Author'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    { className: 'list-group list-group-flush' },
+                    listBooks
+                )
             );
         }
     }]);
@@ -55020,6 +55047,82 @@ module.exports = camelize;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var AddAuthorModal = function (_Component) {
+    _inherits(AddAuthorModal, _Component);
+
+    function AddAuthorModal() {
+        _classCallCheck(this, AddAuthorModal);
+
+        return _possibleConstructorReturn(this, (AddAuthorModal.__proto__ || Object.getPrototypeOf(AddAuthorModal)).apply(this, arguments));
+    }
+
+    _createClass(AddAuthorModal, [{
+        key: "render",
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "_modal" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "_modal-content" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "h5",
+                        null,
+                        "Add Author"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "offset-sm-2 col-sm-8" },
+                        "Name:",
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", className: "form-control" })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "button",
+                            { type: "button", className: "btn btn-primary" },
+                            "Save"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "button",
+                            { type: "button", className: "btn btn-secondary",
+                                onClick: this.props.modalAuthorClose },
+                            "Close"
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return AddAuthorModal;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (AddAuthorModal);
 
 /***/ })
 /******/ ]);
