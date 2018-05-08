@@ -36424,7 +36424,9 @@ var Book = function (_Component) {
                             null,
                             'Author:'
                         ),
-                        ' book.author.name \xA0|\xA0'
+                        ' ',
+                        book.author.name,
+                        ' \xA0|\xA0'
                     ) : null,
                     book.publication ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'span',

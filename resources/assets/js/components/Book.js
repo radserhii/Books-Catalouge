@@ -84,7 +84,7 @@ export default class Book extends Component {
             <li className="list-group-item" key={index}>
                 <b>ID:</b> {book.id}&nbsp;|&nbsp;
                 <b>Title:</b> {book.title}&nbsp;|&nbsp;
-                {book.author ? <span><b>Author:</b> book.author.name &nbsp;|&nbsp;</span> : null}
+                {book.author ? <span><b>Author:</b> {book.author.name} &nbsp;|&nbsp;</span> : null}
                 {book.publication ? <span><b>Publishing house:</b> {book.publication.name}&nbsp;|&nbsp;</span> : null}
                 <b>Published at:</b> {book.published_at}&nbsp;|&nbsp;
                 <button
