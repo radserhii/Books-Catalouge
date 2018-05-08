@@ -36293,8 +36293,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddAuthorModal__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddPublicationModal__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddBookModal__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddAuthorModal__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__AddPublicationModal__ = __webpack_require__(64);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36302,6 +36303,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -36318,18 +36320,19 @@ var Book = function (_Component) {
 
         _this.state = {
             books: [],
+            modalBook: false,
             modalAuthor: false,
             modalPublication: false
             // error: false
         };
-        // this.handleDateSearch = this.handleDateSearch.bind(this);
-        // this.handleEdit = this.handleEdit.bind(this);
-        _this.handleDelete = _this.handleDelete.bind(_this);
+
+        _this.modalBookOpen = _this.modalBookOpen.bind(_this);
+        _this.modalBookClose = _this.modalBookClose.bind(_this);
         _this.modalAuthorOpen = _this.modalAuthorOpen.bind(_this);
         _this.modalAuthorClose = _this.modalAuthorClose.bind(_this);
         _this.modalPublicationOpen = _this.modalPublicationOpen.bind(_this);
         _this.modalPublicationClose = _this.modalPublicationClose.bind(_this);
-        // this.updateStateFromStore = this.updateStateFromStore.bind(this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
         return _this;
     }
 
@@ -36343,6 +36346,17 @@ var Book = function (_Component) {
             }).catch(function (error) {
                 console.log(error);
             });
+        }
+    }, {
+        key: 'modalBookOpen',
+        value: function modalBookOpen() {
+            this.setState({ modalBook: true });
+        }
+    }, {
+        key: 'modalBookClose',
+        value: function modalBookClose() {
+            this.setState({ modalBook: false });
+            this.componentDidMount();
         }
     }, {
         key: 'modalAuthorOpen',
@@ -36364,34 +36378,12 @@ var Book = function (_Component) {
         value: function modalPublicationClose() {
             this.setState({ modalPublication: false });
         }
-
-        // handleDateSearch() {
-        //     if (!this.refs.dateStart.value || !this.refs.dateEnd.value) {
-        //         this.setState({error: true});
-        //         return null;
-        //     }
-        //
-        //     this.setState({error: false});
-        //
-        //     axios.get(`/api/operations/${this.refs.dateStart.value}/${this.refs.dateEnd.value}`)
-        //         .then(response => {
-        //             this.setState({operations: response.data});
-        //         })
-        //         .catch(error => {
-        //             console.log(error);
-        //         });
-        // }
-
-        // handleEdit(id) {
-        //     window.location.pathname = `api/operation/${id}/edit`;
-        // }
-
     }, {
         key: 'handleDelete',
         value: function handleDelete(id) {
             confirm("Are you sure? Book will be delete!");
 
-            axios.delete('/api/books/' + id).then(function (response) {
+            axios.delete('/api/book/' + id).then(function (response) {
                 console.log(response.data);
             }).catch(function (error) {
                 console.log(error);
@@ -36399,13 +36391,6 @@ var Book = function (_Component) {
 
             this.componentDidMount();
         }
-
-        // // Update list operations after store new operation
-        // updateStateFromStore(operation) {
-        //     // this.setState({operations: [operation, ...this.state.operations]});
-        //     this.componentDidMount();
-        // }
-
     }, {
         key: 'render',
         value: function render() {
@@ -36475,12 +36460,20 @@ var Book = function (_Component) {
                 );
             });
 
-            if (this.state.modalAuthor) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AddAuthorModal__["a" /* default */], { modalAuthorClose: this.modalAuthorClose });
-            if (this.state.modalPublication) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddPublicationModal__["a" /* default */], { modalPublicationClose: this.modalPublicationClose });
+            if (this.state.modalBook) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AddBookModal__["a" /* default */], { modalBookClose: this.modalBookClose });
+            if (this.state.modalAuthor) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddAuthorModal__["a" /* default */], { modalAuthorClose: this.modalAuthorClose });
+            if (this.state.modalPublication) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AddPublicationModal__["a" /* default */], { modalPublicationClose: this.modalPublicationClose });
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    {
+                        className: 'btn btn-warning',
+                        onClick: this.modalBookOpen },
+                    'Add Book'
+                ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
                     {
@@ -55298,6 +55291,191 @@ var AddPublicationModal = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (AddPublicationModal);
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var AddBookModal = function (_Component) {
+    _inherits(AddBookModal, _Component);
+
+    function AddBookModal(props) {
+        _classCallCheck(this, AddBookModal);
+
+        var _this = _possibleConstructorReturn(this, (AddBookModal.__proto__ || Object.getPrototypeOf(AddBookModal)).call(this, props));
+
+        _this.state = {
+            authors: [],
+            publications: [],
+            error: false
+        };
+        _this.handleSave = _this.handleSave.bind(_this);
+        return _this;
+    }
+
+    _createClass(AddBookModal, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            axios.get('/api/authors').then(function (response) {
+                _this2.setState({ authors: response.data });
+            }).catch(function (error) {
+                console.log(error);
+            });
+            axios.get('/api/publications').then(function (response) {
+                _this2.setState({ publications: response.data });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'handleSave',
+        value: function handleSave() {
+            var _this3 = this;
+
+            if (!this.refs.titleBook.value || !this.refs.publishedBook.value) {
+                this.setState({ error: true });
+                return null;
+            }
+            this.setState({ error: false });
+
+            axios.post('/api/book', {
+                title: this.refs.titleBook.value,
+                author_id: this.refs.authorBook.value || null,
+                publication_id: this.refs.publicationBook.value || null,
+                published_at: this.refs.publishedBook.value
+            }).then(function (response) {
+                _this3.props.modalBookClose();
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var error = "Input title and published fields";
+
+            var listAuthors = this.state.authors.map(function (author) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { key: author.id, value: author.id },
+                    author.name
+                );
+            });
+
+            var listPublications = this.state.publications.map(function (publication) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { key: publication.id, value: publication.id },
+                    publication.name
+                );
+            });
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: '_modal' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: '_modal-content' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: this.state.error ? "text-danger" : "" },
+                        this.state.error ? error : ""
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h5',
+                        null,
+                        'Add Book'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'offset-sm-2 col-sm-8' },
+                        'Title:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            ref: 'titleBook',
+                            type: 'text',
+                            className: 'form-control' })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'offset-sm-2 col-sm-8' },
+                        'Author:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'select',
+                            {
+                                ref: 'authorBook',
+                                defaultValue: '',
+                                className: 'form-control' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('option', { value: '' }),
+                            listAuthors
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'offset-sm-2 col-sm-8' },
+                        'Publication house:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'select',
+                            {
+                                ref: 'publicationBook',
+                                defaultValue: '',
+                                className: 'form-control' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('option', { value: '' }),
+                            listPublications
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'offset-sm-2 col-sm-8' },
+                        'Published at:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            ref: 'publishedBook',
+                            type: 'date',
+                            className: 'form-control' })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { type: 'button',
+                                className: 'btn btn-primary',
+                                onClick: this.handleSave },
+                            'Save'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { type: 'button',
+                                className: 'btn btn-secondary',
+                                onClick: this.props.modalBookClose },
+                            'Close'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return AddBookModal;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (AddBookModal);
 
 /***/ })
 /******/ ]);

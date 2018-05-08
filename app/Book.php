@@ -34,6 +34,22 @@ class Book extends Model
     }
 
     /**
+     * Store book to db
+     * @param $request
+     * @return Book
+     */
+    public function storeBook($request)
+    {
+        $book = new Book;
+        $book->title = $request->title;
+        $book->author_id = $request->author_id;
+        $book->publication_id = $request->publication_id;
+        $book->published_at = $request->published_at;
+        $book->save();
+        return $book;
+    }
+
+    /**
      * Delete the book from the db
      * @param $id - book id
      */

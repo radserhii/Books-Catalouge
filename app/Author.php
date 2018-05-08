@@ -17,6 +17,16 @@ class Author extends Model
     }
 
     /**
+     * Get all authors from db
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getAuthors()
+    {
+        $books = $this->all();
+        return $books;
+    }
+
+    /**
      * Store author to db
      * @param $request
      * @return Author

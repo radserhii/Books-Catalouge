@@ -10,13 +10,25 @@ class BookController extends Controller
 {
     /**
      * Display a listing of books
-     * @param Book $books
+     * @param Book $book
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Book $books)
+    public function index(Book $book)
     {
-        $books = $books->getBooks();
+        $books = $book->getBooks();
         return response()->json($books, 200);
+    }
+
+    /**
+     * Store book to storage
+     * @param Request $request
+     * @param Book $book
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request, Book $book)
+    {
+        $book = $book->storeBook($request);
+        return response()->json($book, 201);
     }
 
     /**

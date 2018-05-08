@@ -14,6 +14,21 @@ class Publication extends Model
         return $this->hasMany('App\Book');
     }
 
+    /**
+     * Get all publications house from db
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getPublications()
+    {
+        $publications = $this->all();
+        return $publications;
+    }
+
+    /**
+     * Store publication house to db
+     * @param $request
+     * @return Publication
+     */
     public function storePublication($request)
     {
         $publication = new Publication;

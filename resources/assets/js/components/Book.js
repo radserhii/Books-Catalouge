@@ -1,25 +1,28 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import AddBookModal from './AddBookModal';
 import AddAuthorModal from './AddAuthorModal';
 import AddPublicationModal from './AddPublicationModal';
 
 export default class Book extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             books: [],
+            modalBook: false,
             modalAuthor: false,
             modalPublication: false,
             // error: false
         };
-        // this.handleDateSearch = this.handleDateSearch.bind(this);
-        // this.handleEdit = this.handleEdit.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
+
+        this.modalBookOpen = this.modalBookOpen.bind(this);
+        this.modalBookClose = this.modalBookClose.bind(this);
         this.modalAuthorOpen = this.modalAuthorOpen.bind(this);
         this.modalAuthorClose = this.modalAuthorClose.bind(this);
         this.modalPublicationOpen = this.modalPublicationOpen.bind(this);
         this.modalPublicationClose = this.modalPublicationClose.bind(this);
-        // this.updateStateFromStore = this.updateStateFromStore.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -30,6 +33,15 @@ export default class Book extends Component {
             .catch(error => {
                 console.log(error);
             });
+    }
+
+    modalBookOpen() {
+        this.setState({modalBook: true});
+    }
+
+    modalBookClose() {
+        this.setState({modalBook: false});
+        this.componentDidMount();
     }
 
     modalAuthorOpen() {
@@ -48,31 +60,10 @@ export default class Book extends Component {
         this.setState({modalPublication: false});
     }
 
-    // handleDateSearch() {
-    //     if (!this.refs.dateStart.value || !this.refs.dateEnd.value) {
-    //         this.setState({error: true});
-    //         return null;
-    //     }
-    //
-    //     this.setState({error: false});
-    //
-    //     axios.get(`/api/operations/${this.refs.dateStart.value}/${this.refs.dateEnd.value}`)
-    //         .then(response => {
-    //             this.setState({operations: response.data});
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }
-
-    // handleEdit(id) {
-    //     window.location.pathname = `api/operation/${id}/edit`;
-    // }
-
     handleDelete(id) {
         confirm("Are you sure? Book will be delete!");
 
-        axios.delete(`/api/books/${id}`)
+        axios.delete(`/api/book/${id}`)
             .then(response => {
                 console.log(response.data);
             })
@@ -82,12 +73,6 @@ export default class Book extends Component {
 
         this.componentDidMount();
     }
-
-    // // Update list operations after store new operation
-    // updateStateFromStore(operation) {
-    //     // this.setState({operations: [operation, ...this.state.operations]});
-    //     this.componentDidMount();
-    // }
 
     render() {
 
@@ -107,11 +92,16 @@ export default class Book extends Component {
         );
 
 
+        if (this.state.modalBook) return <AddBookModal modalBookClose={this.modalBookClose}/>;
         if (this.state.modalAuthor) return <AddAuthorModal modalAuthorClose={this.modalAuthorClose}/>;
         if (this.state.modalPublication) return <AddPublicationModal modalPublicationClose={this.modalPublicationClose}/>;
 
         return (
             <div>
+                <button
+                    className="btn btn-warning"
+                    onClick={this.modalBookOpen}>Add Book
+                </button>
                 <button
                     className="btn btn-primary"
                     onClick={this.modalAuthorOpen}>Add Author
