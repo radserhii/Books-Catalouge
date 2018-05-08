@@ -42,4 +42,12 @@ class BookController extends Controller
         $book->deleteBook($id);
         return response()->json('Successful delete', 200);
     }
+
+    public function updateImg($id, Request $request, Book $book)
+    {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalName();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $imageName);
+    }
 }
