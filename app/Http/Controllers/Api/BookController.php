@@ -71,7 +71,7 @@ class BookController extends Controller
     private function saveImage($request)
     {
         $image = $request->file('image');
-        $imageName = $image->getClientOriginalName();
+        $imageName = time() . $image->getClientOriginalName();
         $destinationPath = public_path('/images');
         $image->move($destinationPath, $imageName);
         return '/images/' . $imageName;
