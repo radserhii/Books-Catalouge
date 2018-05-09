@@ -36432,12 +36432,11 @@ var Book = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'row' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        book.image ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col-sm-2' },
-                            book.image ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: book.image, className: 'img-thumbnail', width: '100px' }) : null,
-                            '\xA0\xA0'
-                        ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: book.image, className: 'img-thumbnail', width: '100px' })
+                        ) : null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col-sm-6' },
@@ -36549,7 +36548,7 @@ var Book = function (_Component) {
                     {
                         className: 'btn btn-success',
                         onClick: this.modalPublicationOpen },
-                    'Add Publication House'
+                    'Add Publishing House'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'ul',

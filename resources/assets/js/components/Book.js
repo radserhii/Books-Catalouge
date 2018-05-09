@@ -106,10 +106,10 @@ export default class Book extends Component {
 
             <li className="list-group-item" key={index}>
                 <div className="row">
-                    <div className="col-sm-2">
-                        {book.image ?
-                            <img src={book.image} className="img-thumbnail" width="100px"/> : null}&nbsp;&nbsp;
-                    </div>
+                    {book.image ?
+                        <div className="col-sm-2"><img src={book.image} className="img-thumbnail" width="100px"/>
+                        </div> : null}
+
                     <div className="col-sm-6">
                         <b>ID:</b> {book.id}&nbsp;|&nbsp;
                         <b>Title:</b> {book.title}&nbsp;|&nbsp;
@@ -152,7 +152,7 @@ export default class Book extends Component {
                 </button>
                 <button
                     className="btn btn-success"
-                    onClick={this.modalPublicationOpen}>Add Publication House
+                    onClick={this.modalPublicationOpen}>Add Publishing House
                 </button>
                 <ul className="list-group list-group-flush">{listBooks}</ul>
             </div>
