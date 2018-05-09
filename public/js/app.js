@@ -36385,6 +36385,8 @@ var Book = function (_Component) {
     }, {
         key: 'handleDelete',
         value: function handleDelete(id) {
+            var _this3 = this;
+
             confirm("Are you sure? Book will be delete!");
 
             axios.delete('/api/book/' + id).then(function (response) {
@@ -36393,7 +36395,9 @@ var Book = function (_Component) {
                 console.log(error);
             });
 
-            this.componentDidMount();
+            setTimeout(function () {
+                _this3.componentDidMount();
+            }, 1000);
         }
 
         // Upload Image
@@ -36406,7 +36410,7 @@ var Book = function (_Component) {
     }, {
         key: 'uploadImageHandler',
         value: function uploadImageHandler(id) {
-            var _this3 = this;
+            var _this4 = this;
 
             var formData = new FormData();
             var imageFile = this.state.image;
@@ -36417,13 +36421,13 @@ var Book = function (_Component) {
                 console.log(error);
             });
             setTimeout(function () {
-                _this3.componentDidMount();
+                _this4.componentDidMount();
             }, 1000);
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
             var listBooks = this.state.books.map(function (book, index) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -36493,7 +36497,7 @@ var Book = function (_Component) {
                                 {
                                     className: 'btn btn-danger',
                                     onClick: function onClick() {
-                                        return _this4.handleDelete(book.id);
+                                        return _this5.handleDelete(book.id);
                                     } },
                                 'Delete'
                             )
@@ -36506,13 +36510,13 @@ var Book = function (_Component) {
                                 null,
                                 'Upload image for book:'
                             ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', onChange: _this4.imageChangedHandler }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', onChange: _this5.imageChangedHandler }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'button',
                                 {
                                     className: 'btn btn-success',
                                     onClick: function onClick() {
-                                        return _this4.uploadImageHandler(book.id);
+                                        return _this5.uploadImageHandler(book.id);
                                     } },
                                 'Upload'
                             )

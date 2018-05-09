@@ -75,7 +75,9 @@ export default class Book extends Component {
                 console.log(error);
             });
 
-        this.componentDidMount();
+        setTimeout(() => {
+            this.componentDidMount();
+        }, 1000);
     }
 
     // Upload Image
