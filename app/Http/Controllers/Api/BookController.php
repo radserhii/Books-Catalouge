@@ -43,11 +43,23 @@ class BookController extends Controller
         return response()->json('Successful delete', 200);
     }
 
-    public function updateImg($id, Request $request, Book $book)
+    public function updateImage($id, Request $request, Book $book)
+    {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+        ]);
+
+        $imagePath = $this->saveImage($request);
+        $book->storeImagePath($id, $imagePath);
+        return response()->json('Image saved successful', 200);
+    }
+
+    private function saveImage($request)
     {
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalName();
         $destinationPath = public_path('/images');
         $image->move($destinationPath, $imageName);
+        return '/images/' . $imageName;
     }
 }

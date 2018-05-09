@@ -49,6 +49,13 @@ class Book extends Model
         return $book;
     }
 
+    public function storeImagePath($id, $imagePath)
+    {
+        $book = $this->find($id);
+        $book->image = $imagePath;
+        $book->save();
+    }
+
     /**
      * Delete the book from the db
      * @param $id - book id

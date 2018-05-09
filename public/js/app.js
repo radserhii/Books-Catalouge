@@ -36406,14 +36406,6 @@ var Book = function (_Component) {
     }, {
         key: 'uploadImageHandler',
         value: function uploadImageHandler(id) {
-            // axios.post(`/api/book_img/${id}`, {'image': this.state.image})
-            //     .then(response => {
-            //         console.log(response.data);
-            //     })
-            //     .catch(error => {
-            //         console.log(error);
-            //     });
-
             var formData = new FormData();
             var imageFile = this.state.image;
             formData.append('image', imageFile);
@@ -36428,7 +36420,6 @@ var Book = function (_Component) {
         value: function render() {
             var _this3 = this;
 
-            // console.log(this.state.file);
             var listBooks = this.state.books.map(function (book, index) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
@@ -36438,7 +36429,13 @@ var Book = function (_Component) {
                         { className: 'row' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'col-sm-7' },
+                            { className: 'col-sm-2' },
+                            book.image ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: book.image, className: 'img-thumbnail', width: '100px' }) : null,
+                            '\xA0\xA0'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-sm-6' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'b',
                                 null,
@@ -36499,7 +36496,7 @@ var Book = function (_Component) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'col-sm-5' },
+                            { className: 'col-sm-4' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'p',
                                 null,

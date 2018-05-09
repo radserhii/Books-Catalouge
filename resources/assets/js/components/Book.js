@@ -84,14 +84,6 @@ export default class Book extends Component {
     }
 
     uploadImageHandler(id) {
-        // axios.post(`/api/book_img/${id}`, {'image': this.state.image})
-        //     .then(response => {
-        //         console.log(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-
         let formData = new FormData();
         let imageFile = this.state.image;
         formData.append('image', imageFile);
@@ -105,12 +97,16 @@ export default class Book extends Component {
     }
 
     render() {
-        // console.log(this.state.file);
+
         const listBooks = this.state.books.map((book, index) =>
 
             <li className="list-group-item" key={index}>
                 <div className="row">
-                    <div className="col-sm-7">
+                    <div className="col-sm-2">
+                        {book.image ?
+                            <img src={book.image} className="img-thumbnail" width="100px"/> : null}&nbsp;&nbsp;
+                    </div>
+                    <div className="col-sm-6">
                         <b>ID:</b> {book.id}&nbsp;|&nbsp;
                         <b>Title:</b> {book.title}&nbsp;|&nbsp;
                         {book.author ? <span><b>Author:</b> {book.author.name} &nbsp;|&nbsp;</span> : null}
@@ -122,12 +118,13 @@ export default class Book extends Component {
                             onClick={() => this.handleDelete(book.id)}>Delete
                         </button>
                     </div>
-                    <div className="col-sm-5">
+                    <div className="col-sm-4">
                         <p>Upload image for book:</p>
                         <input type="file" onChange={this.imageChangedHandler}/>
                         <button
                             className="btn btn-success"
-                            onClick={() => this.uploadImageHandler(book.id)}>Upload</button>
+                            onClick={() => this.uploadImageHandler(book.id)}>Upload
+                        </button>
                     </div>
                 </div>
             </li>
