@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Book extends Model
 {
@@ -49,6 +50,11 @@ class Book extends Model
         return $book;
     }
 
+    /**
+     * Store image book path to db
+     * @param $id - book id
+     * @param $imagePath
+     */
     public function storeImagePath($id, $imagePath)
     {
         $book = $this->find($id);
@@ -58,11 +64,24 @@ class Book extends Model
 
     /**
      * Delete the book from the db
+     * Delete image book from storage (public/images)
      * @param $id - book id
      */
     public function deleteBook($id)
     {
         $book = $this->find($id);
+        File::delete(public_path() . $book->image);
         $book->delete();
+    }
+
+    /**
+     * Delete old book image if exist from public storage
+     * @param $id - book id
+     */
+    public function deleteImage($id)
+    {
+        $book = $this->find($id);
+        if(!$book->image) return;
+        File::delete(public_path() . $book->image);
     }
 }

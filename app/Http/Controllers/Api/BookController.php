@@ -43,21 +43,35 @@ class BookController extends Controller
         return response()->json('Successful delete', 200);
     }
 
-    public function updateImage($id, Request $request, Book $book)
+    /**
+     * Delete old image if exist, upload image to public storage and save image path to db
+     * @param $id
+     * @param Request $request
+     * @param Book $book
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadImage($id, Request $request, Book $book)
     {
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
+
+        $book->deleteImage($id);
 
         $imagePath = $this->saveImage($request);
         $book->storeImagePath($id, $imagePath);
         return response()->json('Image saved successful', 200);
     }
 
+    /**
+     * Save book image file to storage
+     * @param $request
+     * @return string - path stored images into public
+     */
     private function saveImage($request)
     {
         $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalName();
+        $imageName = $image->getClientOriginalName();
         $destinationPath = public_path('/images');
         $image->move($destinationPath, $imageName);
         return '/images/' . $imageName;

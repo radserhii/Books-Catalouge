@@ -94,6 +94,10 @@ export default class Book extends Component {
             .catch(error => {
                 console.log(error);
             });
+        setTimeout(() => {
+            this.componentDidMount();
+        }, 1000);
+
     }
 
     render() {
@@ -112,7 +116,7 @@ export default class Book extends Component {
                         {book.author ? <span><b>Author:</b> {book.author.name} &nbsp;|&nbsp;</span> : null}
                         {book.publication ?
                             <span><b>Publishing house:</b> {book.publication.name}&nbsp;|&nbsp;</span> : null}
-                        <b>Published at:</b> {book.published_at}&nbsp;|&nbsp;
+                        <b>Published at:</b> {book.published_at}<br/>
                         <button
                             className="btn btn-danger"
                             onClick={() => this.handleDelete(book.id)}>Delete

@@ -18,7 +18,7 @@ Route::get('books', 'Api\BookController@index');
 Route::post('book', 'Api\BookController@store');
 Route::delete('book/{id}', 'Api\BookController@destroy');
 
-Route::post('book_img/{id}', 'Api\BookController@updateImage');
+Route::post('book_img/{id}', 'Api\BookController@uploadImage');
 
 //Author routes
 Route::get('authors', 'Api\AuthorController@index');
